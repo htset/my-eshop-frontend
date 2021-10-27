@@ -1,0 +1,18 @@
+<h3>{{item.name}}</h3>
+<div>
+    <div class="row">
+        <div class="col-md-3"><img src="/assets/angular.svg" width="200px"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">Description: {{item.description}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">Category: {{item.category}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">Price: {{item.price}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><button (click)="addToCart()" id="addToCart">Add to Cart</button></div>
+    </div>
+</div>

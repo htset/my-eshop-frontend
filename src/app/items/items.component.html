@@ -1,0 +1,12 @@
+<p>Products</p>
+
+<div class="row">
+    <div *ngFor="let item of items;">
+        <div class="card" style="width: 15rem">
+          <div class="card-body">
+            <h5 class="card-title"><a routerLink="/items/{{item.id}}">{{item.name}}</a></h5>
+            <p class="card-subtitle mb-2 text-muted">${{item.price}}</p>
+          </div>
+        </div>
+    </div>
+</div>
