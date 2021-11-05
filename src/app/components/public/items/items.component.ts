@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemService } from '../item.service';
+import { ItemService } from '../../../services/item.service';
+import { StoreService } from '../../../services/store.service';
 
 @Component({
   selector: 'app-items',
@@ -8,19 +9,18 @@ import { ItemService } from '../item.service';
 })
 export class ItemsComponent implements OnInit {
 
-  items:any = [];
+  constructor(
+    private itemService: ItemService,
+    public storeService: StoreService) { }
 
-  constructor(private itemService: ItemService) { }
-
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.getItems();
   }
 
   getItems(): void {
     this.itemService.getItems()
-      .subscribe(items => {
-        this.items = items;
-      });
+      .subscribe(items => {this.storeService.items = items});
   }
+
 
 }
