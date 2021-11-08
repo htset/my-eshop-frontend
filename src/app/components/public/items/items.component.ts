@@ -14,13 +14,29 @@ export class ItemsComponent implements OnInit {
     public storeService: StoreService) { }
 
   ngOnInit(): void {
+    this.storeService.pageSizeChanges$
+      .subscribe(newPageSize => {
+        this.storeService.page = 1;
+        this.getItems();
+      });
+
     this.getItems();
   }
 
   getItems(): void {
-    this.itemService.getItems()
-      .subscribe(items => {this.storeService.items = items});
+    this.itemService.getItems(this.storeService.page, this.storeService.pageSize)
+      .subscribe(itemPayload => {
+        this.storeService.items = itemPayload.items;
+        this.storeService.count = itemPayload.count; 
+      });
   }
 
+  onPageChange(newPage: number): void {
+    this.storeService.page = newPage;
+    this.getItems();
+  }
 
+  onPageSizeChange(): void{
+    this.storeService._pageSizeSubject.next(this.storeService.pageSize);
+  }
 }
