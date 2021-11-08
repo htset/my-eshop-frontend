@@ -23,7 +23,7 @@ export class ItemService {
   getItems(page:number, pageSize:number): Observable<ItemPayload> {
     let payload:ItemPayload = {
       items: mock_items.items.slice((page-1)*pageSize, page*pageSize),
-      count: 6
+      count: mock_items.items.length
     }
     return of(payload);
   }
