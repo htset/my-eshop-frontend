@@ -1,10 +1,6 @@
 import { Item } from "./item";
 
-export class ItemPayload{
-
-    constructor(
-        public items: Item[],
-        public count: number 
-    ) { }
-
+export interface ItemPayload{
+    items: Item[];
+    count: number;
 }
