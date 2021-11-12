@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { Filter } from '../models/filter';
 import { Item } from '../models/item';
 
 @Injectable({
@@ -44,6 +45,16 @@ export class StoreService {
     this._count.next(val);
   }
 
+  private readonly _filter = new BehaviorSubject<Filter>({name: "", categories:[]});
+  readonly filter$ = this._filter.asObservable(); 
+  
+  get filter(): Filter {
+    return this._filter.getValue();
+  }
+
+  set filter(val: Filter) {
+    this._filter.next(val);
+  }  
   constructor() { }
 
 }
