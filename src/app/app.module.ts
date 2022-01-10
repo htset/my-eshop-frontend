@@ -8,8 +8,12 @@ import { ItemDetailsComponent } from './components/public/item-details/item-deta
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterComponent } from './components/shared/filter/filter.component';
 import { CartComponent } from './components/public/cart/cart.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './components/public/login/login.component';
+import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
+import { AdminUsersComponent } from './components/admin/admin-users/admin-users.component';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +22,9 @@ import { LoginComponent } from './components/public/login/login.component';
     ItemDetailsComponent,
     FilterComponent,
     CartComponent,
-    LoginComponent
+    LoginComponent,
+    AdminHomeComponent,
+    AdminUsersComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +34,9 @@ import { LoginComponent } from './components/public/login/login.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
