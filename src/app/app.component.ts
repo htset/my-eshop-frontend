@@ -23,7 +23,8 @@ export class AppComponent {
 
   logout(e: Event) {
     e.preventDefault();
-    this.authenticationService.logout();
+    const currentUser = this.storeService.user;
+    this.authenticationService.logout(currentUser?.refreshToken || '');
     this.router.navigate(['/login']);
   }
 }
