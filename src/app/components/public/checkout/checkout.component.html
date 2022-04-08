@@ -1,0 +1,87 @@
+<h2>Checkout</h2>
+
+<div *ngIf="storeService.cart.cartItems.length > 0" class="card">
+    <div class="card-body" id="cartBody">
+        <h3 class="card-header">Cart</h3>
+        <table class="table table-striped">
+            <tr>
+                <th>Item name</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total Price</th>
+            </tr>
+            <tr *ngFor="let ci of storeService.cart.cartItems">
+                <td>{{ci.item.name}}</td>
+                <td>{{ci.quantity}}</td>
+                <td>{{ci.item.price}}</td>
+                <td>{{ci.item.price * ci.quantity}}</td>
+            </tr>
+        </table>
+        Cart Total: {{storeService.cart.getTotalValue()}}
+    </div>
+</div>
+
+<div *ngIf="storeService.cart.cartItems.length == 0" class="card">
+    <div class="card-body" id="noCartBody">
+        <h3 class="card-header">Cart</h3>
+        Cart is empty
+    </div>
+</div>
+
+<div *ngIf="storeService?.user?.id" class="card">
+    <div class="card-body" id="addressBody">
+        <h3 class="card-header">Delivery Address</h3>
+        <form (ngSubmit)="onSubmit()">
+            <table style="width:100%;">
+                <tr *ngFor="let addr of addressList">
+                    <td style="vertical-align: top;">
+                        <input type="radio" id="selectedAddress{{addr.id}}" name="selectedAddress" [value]="addr.id" [(ngModel)]="selectedAddressId"/>
+                    </td>
+                    <td *ngIf="addressIdForModification != addr.id">
+                        <strong>{{addr.firstName + ' ' + addr.lastName}}</strong><br/>
+                        {{addr.street}} <br/>
+                        {{addr.zip + ' ' + addr.city}}<br/>
+                        {{addr.country}} <br/>
+                    </td>
+                    <td *ngIf="addressIdForModification == addr.id">
+                        <app-delivery-address 
+                                (addressChangedEvent)="addressChanged($event)"
+                                [address] = "addr">
+                        </app-delivery-address>
+                    </td>
+                    <td style="vertical-align: top;">
+                        <button type="button" id="modify{{addr.id}}" *ngIf="addressIdForModification != addr.id" (click)="modifyAddress(addr)">Modify</button>  
+                        <button type="button" id="cancel{{addr.id}}" *ngIf="addressIdForModification == addr.id" (click)="cancelModifyAddress()">Cancel</button>  
+                        <br/>
+                        <button type="button" *ngIf="addressIdForModification != addr.id" (click)="deleteAddress(addr)">Delete</button>  
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">
+                        <input type="radio" id="selectedAddress0" name="selectedAddress" [value]="0" [(ngModel)]="selectedAddressId"/>
+                    </td>
+                    <td>
+                        <strong>New address:</strong><br/>
+                        <app-delivery-address 
+                            *ngIf="selectedAddressId==0" 
+                            (addressChangedEvent)="addressChanged($event)">
+                        </app-delivery-address>                    
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" 
+                    id="toPayment"
+                    [disabled]="!((addressIdForModification == -1) && (selectedAddressId>0) && (storeService.cart.cartItems.length > 0))"
+                    value="To payment" />
+        </form> 
+    </div>
+</div>
+
+<div *ngIf="!storeService?.user?.id" class="card">
+    <div class="card-body" id="loginLink">
+        <h3 class="card-header">Delivery Address</h3>    
+        <p>You need to <a [routerLink]="['/login']" [queryParams]="{returnUrl: 'checkout'}">log in</a></p>
+    </div>
+</div>
+
+<button routerLink="/cart">Back to Cart</button><br/>

@@ -13,6 +13,8 @@ import { LoginComponent } from './components/public/login/login.component';
 import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
 import { AdminUsersComponent } from './components/admin/admin-users/admin-users.component';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { CheckoutComponent } from './components/public/checkout/checkout.component';
+import { DeliveryAddressComponent } from './components/shared/delivery-address/delivery-address.component';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
     CartComponent,
     LoginComponent,
     AdminHomeComponent,
-    AdminUsersComponent
+    AdminUsersComponent,
+    CheckoutComponent,
+    DeliveryAddressComponent
   ],
   imports: [
     BrowserModule,

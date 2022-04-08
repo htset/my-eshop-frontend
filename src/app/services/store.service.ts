@@ -83,6 +83,17 @@ export class StoreService {
     this._user.next(val);
   }
 
+  private readonly _deliveryAddress = new BehaviorSubject<number>(-1);
+  readonly deliveryAddress$ = this._deliveryAddress.asObservable(); 
+  
+  get deliveryAddress(): number {
+    return this._deliveryAddress.getValue();
+  }
+
+  set deliveryAddress(val: number) {
+    this._deliveryAddress.next(val);
+  }  
+    
   constructor() { }
 
 }
