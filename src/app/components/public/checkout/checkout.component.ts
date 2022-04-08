@@ -18,7 +18,6 @@ export class CheckoutComponent implements OnInit {
   addressList?:Address[];
   
   constructor(public storeService: StoreService,
-    public authenticationService: AuthenticationService,
     public userService: UserService,
     public router: Router ) { }
 

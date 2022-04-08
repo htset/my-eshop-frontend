@@ -25,8 +25,7 @@ export class DeliveryAddressComponent implements OnInit {
     userId: new FormControl('')
   });
   
-  constructor(public storeService: StoreService,
-              public userService: UserService) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.addressForm.controls.firstname.setValue(this?.address?.firstName);
