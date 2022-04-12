@@ -1,0 +1,86 @@
+<h2>Payment</h2>
+
+<div *ngIf="storeService.cart.cartItems.length > 0" class="card">
+    <div class="card-body" id="cartBody">
+        <h3 class="card-header">Credit card details</h3>
+
+        <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+            <div class="form-row">    
+                <div class="form-group col-md-2">
+                    <label for="cardNumber">Credit card no.:</label>
+                    <input type="text" class="form-control form-control-sm" formControlName="cardNumber"/>
+                    <div *ngIf="paymentForm.controls['cardNumber'].invalid && (paymentForm.controls['cardNumber'].dirty || paymentForm.controls['cardNumber'].touched)" 
+                        class="text-danger">
+                        <div *ngIf="paymentForm.controls['cardNumber'].errors">       
+                            Please enter a valid credit card number        
+                        </div>        
+                    </div>                
+                </div>
+            </div>
+            <div class="form-row">    
+                <div class="form-group col-md-2">
+                    <label for="holderName">Holder's Name:</label>
+                    <input type="text" class="form-control form-control-sm" formControlName="holderName"/>
+                    <div *ngIf="paymentForm.controls['holderName'].invalid && (paymentForm.controls['holderName'].dirty || paymentForm.controls['holderName'].touched)" 
+                        class="text-danger">
+                        <div *ngIf="paymentForm.controls['holderName'].errors">       
+                            Please enter the card holder's name        
+                        </div>        
+                    </div>                
+                </div>
+            </div>
+            <div class="form-row">    
+                <div class="form-group col-md-2">
+                    <label for="code">CVV Code:</label>
+                    <input type="text" class="form-control form-control-sm" formControlName="code"/>
+                    <div *ngIf="paymentForm.controls['code'].invalid && (paymentForm.controls['code'].dirty || paymentForm.controls['code'].touched)" 
+                        class="text-danger">
+                        <div *ngIf="paymentForm.controls['code'].errors">       
+                            Please enter a valid CVV code        
+                        </div>        
+                    </div>                
+                </div>
+            </div>
+            <div class="form-row">    
+                <div class="form-group col-sm-1">
+                    <label for="expirydate">Expiry date:</label>
+                    <select formControlName="expiryMonth" class="form-control form-control-sm">
+                        <option *ngFor="let item of numSequence(12); let i = index;" [value]="i+1">{{i+1}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-1">
+                    <label for="expirydate">&nbsp;</label>
+                    <select formControlName="expiryYear" class="form-control form-control-sm">
+                        <option *ngFor="let i of numSequenceStart(5, 2022);" [value]="i">{{i}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">    
+                <div *ngIf="(paymentForm.controls['expiryMonth'].invalid || paymentForm.controls['expiryYear'].invalid) && (paymentForm.controls['expiryMonth'].dirty || paymentForm.controls['expiryMonth'].touched || paymentForm.controls['expiryYear'].dirty || paymentForm.controls['expiryYear'].touched)" 
+                    class="text-danger">
+                    <div *ngIf="paymentForm.controls['expiryMonth'].errors || paymentForm.controls['expiryYear'].errors">       
+                        Please enter the card's expiration date        
+                    </div>        
+                </div>                
+                <div *ngIf="(paymentForm.invalid) && (paymentForm.controls['expiryMonth'].dirty || paymentForm.controls['expiryMonth'].touched || paymentForm.controls['expiryYear'].dirty || paymentForm.controls['expiryYear'].touched)" 
+                    class="text-danger">
+                    <div *ngIf="paymentForm.errors ">       
+                        The credit card has expired        
+                    </div>        
+                </div>                
+            </div>    
+
+            <button type="submit" [disabled]="!paymentForm.valid">Finalize Order</button>
+        </form>
+
+    </div>
+</div>            
+
+<div *ngIf="storeService.cart.cartItems.length == 0" class="card">
+    <div class="card-body" id="noCartBody">
+        <h3 class="card-header">Cart</h3>
+        Cart is empty
+    </div>
+</div>
+
+<button routerLink="/checkout">Back to Checkout</button><br/>

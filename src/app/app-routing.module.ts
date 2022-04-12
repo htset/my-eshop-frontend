@@ -7,6 +7,8 @@ import { CheckoutComponent } from './components/public/checkout/checkout.compone
 import { ItemDetailsComponent } from './components/public/item-details/item-details.component';
 import { ItemsComponent } from './components/public/items/items.component';
 import { LoginComponent } from './components/public/login/login.component';
+import { PaymentComponent } from './components/public/payment/payment.component';
+import { SummaryComponent } from './components/public/summary/summary.component';
 import { AuthGuard } from './helpers/auth.guard';
 
 const routes: Routes = [
@@ -15,6 +17,8 @@ const routes: Routes = [
   {path: 'items/:id', component: ItemDetailsComponent }  ,
   {path: 'cart', component: CartComponent},
   {path: 'checkout', component: CheckoutComponent},
+  {path: 'payment', component: PaymentComponent},    
+  {path: 'summary', component: SummaryComponent},    
   {path: 'login', component: LoginComponent},
   {path: 'admin',  component: AdminHomeComponent, canActivate: [AuthGuard],
     children: [
