@@ -30,11 +30,14 @@ export class AuthenticationService {
     this.http.post<any>(`${environment.apiUrl}/users/revoke`, {refreshToken})
       .subscribe();
         
+    this.storeService.cart.emptyCart();
     sessionStorage.removeItem('user');
+
     this.storeService.user = null;
   }
 
   refreshToken(token: string, refreshToken: string){
+    console.log("auth service");
     return this.http.post<User>(`${environment.apiUrl}/users/refresh`, {token, refreshToken})
     .pipe(
       map(user => {

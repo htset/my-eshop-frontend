@@ -1,0 +1,15 @@
+<div class="modal-header">
+	<h4 class="modal-title" id="modal-basic-title">Error</h4>
+</div>	
+<div class="modal-body">
+	<p class="error-message">
+		{{message}}
+	</p>
+	<p *ngIf="info">
+		<em>Additional information: {{info}}</em>
+	</p>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-outline-dark" (click)="activeModal.close()">Close</button>
+</div>
+  

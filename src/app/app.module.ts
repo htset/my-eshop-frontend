@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +17,11 @@ import { CheckoutComponent } from './components/public/checkout/checkout.compone
 import { DeliveryAddressComponent } from './components/shared/delivery-address/delivery-address.component';
 import { PaymentComponent } from './components/public/payment/payment.component';
 import { SummaryComponent } from './components/public/summary/summary.component';
+import { GlobalErrorHandler } from './helpers/global-error-handler';
+import { ErrorDialogComponent } from './components/shared/error-dialog/error-dialog.component';
+import { ErrorInterceptor } from './helpers/error-interceptor';
+import { LoadingDialogComponent } from './components/shared/loading-dialog/loading-dialog.component';
+import { AnalyticsDirective } from './directives/analytics.directive';
 
 
 @NgModule({
@@ -32,7 +37,10 @@ import { SummaryComponent } from './components/public/summary/summary.component'
     CheckoutComponent,
     DeliveryAddressComponent,
     PaymentComponent,
-    SummaryComponent
+    SummaryComponent,
+    ErrorDialogComponent,
+    LoadingDialogComponent,
+    AnalyticsDirective
   ],
   imports: [
     BrowserModule,
@@ -44,6 +52,8 @@ import { SummaryComponent } from './components/public/summary/summary.component'
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

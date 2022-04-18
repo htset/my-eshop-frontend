@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { AuthenticationService } from '../services/authentication.service';
 import { StoreService } from '../services/store.service';
 
@@ -18,11 +20,20 @@ export class AuthGuard implements CanActivate {
       if(currentUser.token && !this.tokenExpired(currentUser.token))
         return true;
 
-      if(!this.refreshToken(currentUser?.token || '', currentUser?.refreshToken || '')){
-        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url} });
-        return false;
-      }
-      return true;
+      return this.authenticationService
+        .refreshToken(currentUser?.token || '', currentUser?.refreshToken || '')
+        .pipe(
+          map(e => {
+            if(e)
+              return true;
+            else
+              return false;
+          }),
+          catchError((err) => {
+            this.router.navigate(['/login'], { queryParams: { returnUrl: state.url} });
+            return of(false);
+          })
+        )
     }
     else if (currentUser && currentUser.role == 'customer') {
       if(currentUser.token && !this.tokenExpired(currentUser.token)){
@@ -30,11 +41,20 @@ export class AuthGuard implements CanActivate {
         return true;
       }
 
-      if(!this.refreshToken(currentUser?.token || '', currentUser?.refreshToken || '')){
-        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url} });
-        return false;
-      }
-      return true;
+      return this.authenticationService
+        .refreshToken(currentUser?.token || '', currentUser?.refreshToken || '')
+        .pipe(
+          map(e => {
+            if(e)
+              return true;
+            else
+              return false;
+          }),
+          catchError((err) => {
+            this.router.navigate(['/login'], { queryParams: { returnUrl: state.url} });
+            return of(false);
+          })
+        );
     }
 
     this.router.navigate(['/login'], { queryParams: { returnUrl: state.url} });
@@ -44,15 +64,5 @@ export class AuthGuard implements CanActivate {
   private tokenExpired(token: string) {
     const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
     return (Math.floor((new Date).getTime() / 1000)) >= expiry;
-  }
-
-  private async refreshToken(token: string, refreshToken: string):Promise<boolean>{
-    try{
-      await this.authenticationService.refreshToken(token, refreshToken).toPromise();
-      return true;
-    }
-    catch(err){
-      return false;
-    }
   }
 }

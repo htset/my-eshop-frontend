@@ -1,18 +1,31 @@
-<h3>{{item.name}}</h3>
-<div>
-    <div class="row">
-        <div class="col-md-3"><img src="/assets/angular.svg" width="200px"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">Description: {{item.description}}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">Category: {{item.category}}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">Price: {{item.price}}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-3"><button (click)="addToCart()" id="addToCart">Add to Cart</button></div>
+<div *ngIf="item.id > 0" class="card-body"> 
+
+    <h3>{{item.name}}</h3>
+    <div>
+        <div class="row">
+            <div class="col-md-3"><img src="/assets/angular.svg" width="200px"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">Description: {{item.description}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">Category: {{item.category}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">Price: {{item.price}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"><button (click)="addToCart()" id="addToCart">Add to Cart</button></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"><button routerLink="/">Back to Items</button></div>
+        </div>
     </div>
 </div>
+
+<div *ngIf="!item.id" class="card-body"> 
+    <div>There was a problem while retrieving the product page</div>
+
+    <button routerLink="/">Back to Items</button>
+</div>
+

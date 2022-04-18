@@ -9,22 +9,26 @@ Page size:
 </select>
 <br/>
 
-<div class="row">
-    <div *ngFor="let item of storeService.items;">
-        <div class="card" style="width: 15rem">
-          <div class="card-body">
-            <h5 class="card-title"><a routerLink="/items/{{item.id}}">{{item.name}}</a></h5>
-            <p class="card-subtitle mb-2 text-muted">${{item.price}}</p>
+
+<div *ngIf="storeService.items.length>0" class="card-body"> 
+  <div class="row">
+      <div *ngFor="let item of storeService.items;">
+          <div class="card" style="width: 15rem">
+            <div class="card-body">
+              <h5 class="card-title"><a routerLink="/items/{{item.id}}">{{item.name}}</a></h5>
+              <p class="card-subtitle mb-2 text-muted">${{item.price}}</p>
+            </div>
           </div>
-        </div>
-    </div>
+      </div>
+  </div>
+</div>
+<div *ngIf="storeService.items.length == 0" class="card-body"> 
+  No products were found
 </div>
 
 <ngb-pagination
-  [(page)]="storeService.page"
-  [pageSize]="storeService.pageSize"
-  [collectionSize]="storeService.count"
-  (pageChange)="onPageChange($event)">
+[(page)]="storeService.page"
+[pageSize]="storeService.pageSize"
+[collectionSize]="storeService.count"
+(pageChange)="onPageChange($event)">
 </ngb-pagination>
-
-  

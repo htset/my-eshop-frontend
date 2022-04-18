@@ -16,11 +16,13 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getAllUsers() {
+      console.log("user service");
+
       return this.http.get<User[]>(`${environment.apiUrl}/users`);
   }
 
   getAddressByUserId(userId: number) {
-    return this.http.get<Address[]>(`${environment.apiUrl}/address`);
+    return this.http.get<Address[]>(`${environment.apiUrl}/address/${userId}`);
   }       
 
   saveAddress(address: Address) {
