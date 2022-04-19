@@ -1,3 +1,4 @@
 export interface LogMessage{
-    message: string
+    message: string,
+    stackTrace: string
 }

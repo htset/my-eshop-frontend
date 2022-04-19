@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from "@angular/common/http";
 import { ErrorHandler, Injectable } from "@angular/core";
 import { LogMessage } from "../models/logMessage";
 import { ErrorDialogService } from "../services/error-dialog.service";
@@ -9,14 +10,21 @@ export class GlobalErrorHandler implements ErrorHandler {
     constructor(private errorDialogService: ErrorDialogService,
                 private remoteLoggingService: LoggingService) { }
 
-    handleError(error: string) {
+    handleError(error: Error | HttpErrorResponse) {
         console.error("Error from global error handler", error);
+        
+        let errorMessage = "";
+        let stackTrace = "";
+        if (error instanceof HttpErrorResponse) {
+            errorMessage = error.error;
+        } else {
+            errorMessage = error.message; 
+            stackTrace = error.stack || '';
+        }
 
-        this.errorDialogService.openDialog(
-            "This operation resulted in an error", 
-            error || "Undefined client error");
+        this.errorDialogService.openDialog(errorMessage || "This operation resulted in an error");
 
-        let logMessage:LogMessage = {message: error};
+        let logMessage:LogMessage = {message: errorMessage, stackTrace: stackTrace};
         this.remoteLoggingService.log(logMessage);
     }
 }
