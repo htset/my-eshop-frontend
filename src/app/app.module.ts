@@ -22,6 +22,7 @@ import { ErrorDialogComponent } from './components/shared/error-dialog/error-dia
 import { ErrorInterceptor } from './helpers/error-interceptor';
 import { LoadingDialogComponent } from './components/shared/loading-dialog/loading-dialog.component';
 import { AnalyticsDirective } from './directives/analytics.directive';
+import { RegistrationComponent } from './components/public/registration/registration.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { AnalyticsDirective } from './directives/analytics.directive';
     SummaryComponent,
     ErrorDialogComponent,
     LoadingDialogComponent,
-    AnalyticsDirective
+    AnalyticsDirective,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,

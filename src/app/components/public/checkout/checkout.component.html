@@ -80,7 +80,7 @@
 <div *ngIf="!storeService?.user?.id" class="card">
     <div class="card-body" id="loginLink">
         <h3 class="card-header">Delivery Address</h3>    
-        <p>You need to <a [routerLink]="['/login']" [queryParams]="{returnUrl: 'checkout'}">log in</a></p>
+        <p>You need to <a [routerLink]="['/login']" [queryParams]="{returnUrl: 'checkout'}">log in</a> or <a [routerLink]="['/register']" [queryParams]="{returnUrl: 'checkout'}">register</a></p>
     </div>
 </div>
 

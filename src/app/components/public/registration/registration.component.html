@@ -1,0 +1,74 @@
+<h2>Registration</h2>
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="firstName">First Name:
+                <input type="text" formControlName="firstName"
+                    [ngClass]="{ 'is-invalid': submitted && registrationForm.controls.firstName.errors }"/>
+            </label>    
+            <div *ngIf="registrationForm.controls['firstName'].invalid && (registrationForm.controls['firstName'].dirty || registrationForm.controls['firstName'].touched)">
+                <div *ngIf="registrationForm.controls.firstName.errors?.required">First name is required</div>
+                <div *ngIf="registrationForm.controls.firstname.errors?.minlength">First name must be at least 1 character long</div>  
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="lastName">Last Name:
+                <input type="text" formControlName="lastName"
+                    [ngClass]="{ 'is-invalid': submitted && registrationForm.controls.lastName.errors }"/>
+            </label>    
+            <div *ngIf="registrationForm.controls['lastName'].invalid && (registrationForm.controls['lastName'].dirty || registrationForm.controls['lastName'].touched)">
+                <div *ngIf="registrationForm.controls.lastName.errors?.required">Last name is required</div>
+                <div *ngIf="registrationForm.controls.lastName.errors?.minlength">Last name must be at least 1 character long</div>  
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="username">User Name:
+                <input type="text" formControlName="username"
+                    [ngClass]="{ 'is-invalid': submitted && registrationForm.controls.username.errors }"/>
+            </label>    
+            <div *ngIf="registrationForm.controls['username'].invalid && (registrationForm.controls['username'].dirty || registrationForm.controls['username'].touched)">
+                <div *ngIf="registrationForm.controls.username.errors?.required">Username is required</div>
+                <div *ngIf="registrationForm.controls.username.errors?.minlength">Username must be at least 4 characters long</div>  
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="password">Password:
+                <input type="password" formControlName="password"/>
+            </label>    
+            <div *ngIf="registrationForm.controls['password'].invalid && (registrationForm.controls['password'].dirty || registrationForm.controls['password'].touched)">
+                <div *ngIf="registrationForm.controls.password.errors?.required">Password is required</div> 
+            </div> 
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="confirmPassword">Confirm password:
+                <input type="password" formControlName="confirmPassword"/>
+            </label>  
+            <div *ngIf="registrationForm.controls['confirmPassword'].invalid && (registrationForm.controls['confirmPassword'].dirty || registrationForm.controls['confirmPassword'].touched)">
+                <div *ngIf="registrationForm.controls.confirmPassword.errors?.required">Confirm Password is required</div>
+                <div *ngIf="registrationForm?.errors?.passwordsMustMatch">Passwords must match</div>
+            </div>  
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="email">Email:
+                <input type="text" formControlName="email"/>
+            </label>
+            <div *ngIf="registrationForm.controls['email'].invalid && (registrationForm.controls['email'].dirty || registrationForm.controls['email'].touched)">
+                <div *ngIf="registrationForm.controls.email.errors?.required">Email is required</div>  
+                <div *ngIf="registrationForm.controls.email.errors?.email">Email must be a valid email address</div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" [disabled]="!registrationForm.valid">Register</button>
+    <div *ngIf="success" class="alert alert-success" role="alert">Registration successful</div>
+    <div *ngIf="failure" class="alert alert-danger" role="alert">{{errorMessage}}</div>
+</form>

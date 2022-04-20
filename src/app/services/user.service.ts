@@ -16,21 +16,23 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getAllUsers() {
-      console.log("user service");
-
-      return this.http.get<User[]>(`${environment.apiUrl}/users`);
+    return this.http.get<User[]>(`${environment.apiUrl}/users`);
   }
 
+  addUser(user:User){
+    return this.http.post<User>(`${environment.apiUrl}/users`, user, this.httpOptions);
+  }
+  
   getAddressByUserId(userId: number) {
     return this.http.get<Address[]>(`${environment.apiUrl}/address/${userId}`);
   }       
 
   saveAddress(address: Address) {
-      return this.http.post<Address>(`${environment.apiUrl}/address`, address);
+    return this.http.post<Address>(`${environment.apiUrl}/address`, address);
   }       
 
   deleteAddress(addressId?: number) {
-      return this.http.delete<number>(`${environment.apiUrl}/address/${addressId}`);
+    return this.http.delete<number>(`${environment.apiUrl}/address/${addressId}`);
   }       
 
 }
