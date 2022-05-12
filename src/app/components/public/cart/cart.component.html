@@ -12,7 +12,7 @@
     <td><a routerLink="/items/{{item.item.id}}"><img src="/assets/angular.svg" width="70px"/></a></td>
     <td><a routerLink="/items/{{item.item.id}}">{{item.item.name}}</a></td>
     <td><a routerLink="/items/{{item.item.id}}">{{item.item.price}}</a></td>
-    <td><input type="number" [(ngModel)]="item.quantity" size="2" id="quantity" appAnalytics events="change blur"/></td>
+    <td><input type="number" [ngModel]="item.quantity" min="0" (change)="onQuantityChange($event, item.item.id)" size="2" id="quantity" appAnalytics events="change blur"/></td>
     <td><a routerLink="/items/{{item.item.id}}">{{item.item.price * item.quantity}}</a></td>
     <td><input type="button" (click)="removeFromCart(item)" id="remove" value="Remove" appAnalytics events="click"/></td>
   </tr>

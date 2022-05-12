@@ -1,0 +1,4 @@
+<h3>Registration E-mail Confirmation</h3>
+<p>{{result}}</p>
+<p><button routerLink="/">Go to product list</button></p>
+<p *ngIf="storeService.cart.cartItems.length > 0 && storeService.cart.isCartValid()"><button routerLink="/cart">Go to cart</button></p>

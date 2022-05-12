@@ -23,6 +23,10 @@ import { ErrorInterceptor } from './helpers/error-interceptor';
 import { LoadingDialogComponent } from './components/shared/loading-dialog/loading-dialog.component';
 import { AnalyticsDirective } from './directives/analytics.directive';
 import { RegistrationComponent } from './components/public/registration/registration.component';
+import { RegistrationConfirmComponent } from './components/public/registration-confirm/registration-confirm.component';
+import { ForgotPasswordComponent } from './components/public/forgot-password/forgot-password.component';
+import { NewPasswordComponent } from './components/public/new-password/new-password.component';
+import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
 
 
 @NgModule({
@@ -42,7 +46,10 @@ import { RegistrationComponent } from './components/public/registration/registra
     ErrorDialogComponent,
     LoadingDialogComponent,
     AnalyticsDirective,
-    RegistrationComponent
+    RegistrationComponent,
+    RegistrationConfirmComponent,
+    ForgotPasswordComponent,
+    NewPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +57,9 @@ import { RegistrationComponent } from './components/public/registration/registra
     NgbModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RecaptchaModule,
+    RecaptchaFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -19,7 +19,9 @@ export class ErrorInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             catchError(error => {
                 console.error("Error from error interceptor", error);
-                return throwError(error);
+                if(error?.statusText == "Unknown Error")
+                    error.error = "Request failed";
+                return throwError(error);                
             }),
             finalize(() => {
                 this.loadingDialogService.hideDialog();

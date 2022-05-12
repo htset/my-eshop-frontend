@@ -22,4 +22,18 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onQuantityChange(event:any, itemId: number) {
+    let newQuantity = parseInt(event.target.value);
+    if(Number.isNaN(newQuantity) || newQuantity < 0){
+      newQuantity = 0;
+      event.target.value = 0;
+    }
+
+    this.storeService.cart.cartItems = this.storeService.cart.cartItems.map(item => {
+      if(item.item.id === itemId )
+        item.quantity = newQuantity;
+      return item;
+    });
+    this.storeService.cart.updateLocalStorage();
+  }
 }
