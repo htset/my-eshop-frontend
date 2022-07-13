@@ -27,6 +27,8 @@ import { RegistrationConfirmComponent } from './components/public/registration-c
 import { ForgotPasswordComponent } from './components/public/forgot-password/forgot-password.component';
 import { NewPasswordComponent } from './components/public/new-password/new-password.component';
 import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
+import { AdminItemsComponent } from './components/admin/admin-items/admin-items.component';
+import { AdminItemFormComponent } from './components/admin/admin-item-form/admin-item-form.component';
 
 
 @NgModule({
@@ -49,7 +51,9 @@ import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
     RegistrationComponent,
     RegistrationConfirmComponent,
     ForgotPasswordComponent,
-    NewPasswordComponent
+    NewPasswordComponent,
+    AdminItemsComponent,
+    AdminItemFormComponent
   ],
   imports: [
     BrowserModule,

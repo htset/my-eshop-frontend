@@ -4,6 +4,7 @@ import { ItemService } from '../../../services/item.service';
 import { StoreService } from '../../../services/store.service';
 import { skip } from 'rxjs/operators';
 import { FilterComponent } from '../../shared/filter/filter.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-items',
@@ -11,6 +12,8 @@ import { FilterComponent } from '../../shared/filter/filter.component';
   styleUrls: ['./items.component.css']
 })
 export class ItemsComponent implements OnInit {
+
+  imageUrl: string = environment.imagesUrl; 
 
   constructor(
     private itemService: ItemService,
