@@ -1,4 +1,8 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+
 
 import { AdminItemFormComponent } from './admin-item-form.component';
 
@@ -8,7 +12,8 @@ describe('AdminItemFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AdminItemFormComponent ]
+      declarations: [ AdminItemFormComponent ],
+      imports: [HttpClientTestingModule, RouterTestingModule, FormsModule]   
     })
     .compileComponents();
   });

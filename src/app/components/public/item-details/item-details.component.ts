@@ -18,7 +18,7 @@ export class ItemDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private itemService: ItemService,
-    private storeService: StoreService,
+    public storeService: StoreService,
     private router: Router
   ) { }
 

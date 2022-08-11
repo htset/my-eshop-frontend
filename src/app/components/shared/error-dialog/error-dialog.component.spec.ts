@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ErrorDialogComponent } from './error-dialog.component';
 
@@ -8,7 +9,8 @@ describe('ErrorDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ErrorDialogComponent ]
+      declarations: [ ErrorDialogComponent ],
+      providers: [NgbActiveModal]      
     })
     .compileComponents();
   });
