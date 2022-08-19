@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Address } from 'src/app/models/address';
-import { StoreService } from 'src/app/services/store.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-delivery-address',
